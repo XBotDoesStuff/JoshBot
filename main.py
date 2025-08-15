@@ -74,15 +74,17 @@ notepad_texts = [
     "Welp, nevermind I guess!",
     "Lizard!                                                                                                                                                               :)",
     "To travel is to live, to live is to die.",
-    "Nothing beats a jet 2 holiday, and now you can save up to 50 pounds per person! That's 200 pounds for a family of four!",
+    "(Darling hold my hand!) Nothing beats a jet 2 holiday, and now you can save up to 50 pounds per person! That's 200 pounds for a family of four!",
     "Loathsomeness waits and dreams in the deep, and decay spreads over the tottering cities of men.",
-    "Me playing Warhammer 1-39,999 so I can finally play Warhammer 40k"
+    "Me playing Warhammer 1-39,999 so I can finally play Warhammer 40k",
+    "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
+    "what"
 ]
 
 # Configuration
 moveto_time = 0.35
 
-# Funny functions
+# Basic functions
 def move_random():
     pag.moveTo(random.randint(0, screen_width), random.randint(0, screen_height), moveto_time)
 
@@ -93,9 +95,11 @@ def type_random_characters(num):
 def play_sound(sound_file):
     def _play():
         sound = pygame.mixer.Sound(sound_file)
+        length = sound.get_length()
         sound.set_volume(1.0)
         sound.play()
-    threading.Thread(target=_play, daemon=True).start()
+        time.sleep(length)
+    threading.Thread(target=_play).start()
 
 def open_notepad(text=random.choice(notepad_texts)):
     subprocess.Popen('notepad.exe')
@@ -105,6 +109,12 @@ def open_notepad(text=random.choice(notepad_texts)):
         pag.press('backspace')
         pag.typewrite(text)
 
+def display_image(img_path=''):
+    if img_path:
+        img = Image.open(img_path)
+        img.show()
+
+# Advanced functions
 def print_ip():
     try:
         public_ip = requests.get("https://api.ipify.org").text
@@ -115,10 +125,9 @@ def print_ip():
     except:
         open_notepad("Hey, turn on your internet.")
 
-def display_image(img_path=''):
-    if img_path:
-        img = Image.open(img_path)
-        img.show()
+def look_at_this_graph():
+    display_image("special_images/lookatthisgraph.png")
+    play_sound("special_sounds/lookatthisgraph.mp3")
 
 
 
@@ -131,4 +140,4 @@ possible_functions = [
     lambda: display_image(random.choice(image_files))
 ]
 
-random.choice(possible_functions)()
+#random.choice(possible_functions)()
