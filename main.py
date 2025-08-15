@@ -66,7 +66,7 @@ notepad_texts = [
 -signed noftatty
     """,
     "sudo rm -rf --no-preserve-root /",
-    "rmdir c:\System32 /s /q",
+    r"""rmdir c:\System32 /s /q""",
     "Praise Josh!",
     "Teetering on that terrible precipice...",
     "figma balls",
@@ -129,6 +129,10 @@ def look_at_this_graph():
     display_image("special_images/lookatthisgraph.png")
     play_sound("special_sounds/lookatthisgraph.mp3")
 
+def virtual_insanity():
+    display_image("special_images/virtual-insanity.jpg")
+    play_sound("special_sounds/virtual-insanity.mp3")
+
 
 
 possible_functions = [
@@ -137,7 +141,10 @@ possible_functions = [
     lambda: play_sound(random.choice(sound_files)), 
     open_notepad, 
     print_ip,
-    lambda: display_image(random.choice(image_files))
+    lambda: display_image(random.choice(image_files)),
+    look_at_this_graph,
+    virtual_insanity
 ]
 
 #random.choice(possible_functions)()
+look_at_this_graph()
