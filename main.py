@@ -161,14 +161,14 @@ def virtual_insanity():
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 possible_functions = {
-    move_random: 5, 
-    random_characters: 1, 
-    random_sound: 1, 
-    open_notepad: 1, 
-    print_ip: 1,
-    random_basic_image: 1,
-    look_at_this_graph: 1,
-    virtual_insanity: 1
+    move_random: 4, 
+    random_characters: 4, 
+    random_sound: 4, 
+    random_basic_image: 3,
+    open_notepad: 3, 
+    print_ip: 3,
+    look_at_this_graph: 2,
+    virtual_insanity: 2
 }
 
 def random_function():
