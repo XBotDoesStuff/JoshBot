@@ -130,8 +130,16 @@ def look_at_this_graph():
     play_sound("special_sounds/lookatthisgraph.mp3")
 
 def virtual_insanity():
-    display_image("special_images/virtual-insanity.jpg")
-    play_sound("special_sounds/virtual-insanity.mp3")
+    beats = [0.46, 1.75, 3.27, 4.5, 5.89, 7.18, 8.49, 9.79, 11.07, 12.42, 13.72, 15, 16.33, 17.6]
+    temp = 0
+    threading.Thread(target=lambda: play_sound("special_sounds/virtual-insanity.mp3")).start()
+    for i in range(len(beats)):
+        wait_time = beats[i] - temp
+        time.sleep(wait_time)
+        print("sleeping for " + str(beats[i] - temp) + " seconds")
+        temp = beats[i]
+        display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
+        
 
 
 
@@ -147,4 +155,4 @@ possible_functions = [
 ]
 
 #random.choice(possible_functions)()
-look_at_this_graph()
+virtual_insanity()
