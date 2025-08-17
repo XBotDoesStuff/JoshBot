@@ -158,7 +158,8 @@ def virtual_insanity():
         print("sleeping for " + str(beats[i] - temp) + " seconds")
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
-        
+
+# Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 possible_functions = {
     move_random: 5, 
     random_characters: 1, 
