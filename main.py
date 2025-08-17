@@ -85,14 +85,18 @@ notepad_texts = [
 moveto_time = 0.35
 
 # Basic functions
+
 def move_random():
+    print("Moving cursor to random position")
     pag.moveTo(random.randint(0, screen_width), random.randint(0, screen_height), moveto_time)
 
 def type_random_characters(num):
+    print("Typing " + str(num) + " random characters")
     for i in range(num):
         pag.typewrite(random.choice(string.ascii_letters + string.punctuation))
 
 def play_sound(sound_file):
+    print("Playing sound: " + sound_file)
     def _play():
         sound = pygame.mixer.Sound(sound_file)
         length = sound.get_length()
@@ -102,6 +106,7 @@ def play_sound(sound_file):
     threading.Thread(target=_play).start()
 
 def open_notepad(text=random.choice(notepad_texts)):
+    print("Messing with notepad: " + text)
     subprocess.Popen('notepad.exe')
     if text:
         time.sleep(1)
@@ -110,12 +115,24 @@ def open_notepad(text=random.choice(notepad_texts)):
         pag.typewrite(text)
 
 def display_image(img_path=''):
+    print("Displaying image: " + img_path)
     if img_path:
         img = Image.open(img_path)
         img.show()
 
+# Randomized basic functions (for the dictionary)
+def random_characters():
+    type_random_characters(random.randint(1, 100))
+
+def random_sound():
+    play_sound(random.choice(sound_files))
+
+def random_basic_image():
+    display_image(random.choice(image_files))
+
 # Advanced functions
 def print_ip():
+    print("Printing IP")
     try:
         public_ip = requests.get("https://api.ipify.org").text
         if public_ip == '{"error": "Too Many Requests"}':
@@ -126,10 +143,12 @@ def print_ip():
         open_notepad("Hey, turn on your internet.")
 
 def look_at_this_graph():
+    print("Look at this graph!")
     display_image("special_images/lookatthisgraph.png")
     play_sound("special_sounds/lookatthisgraph.mp3")
 
 def virtual_insanity():
+    print("Dancing, walking, rearranging furniture.")
     beats = [0.46, 1.75, 3.27, 4.5, 5.89, 7.18, 8.49, 9.79, 11.07, 12.42, 13.72, 15, 16.33, 17.6]
     temp = 0
     threading.Thread(target=lambda: play_sound("special_sounds/virtual-insanity.mp3")).start()
@@ -140,19 +159,20 @@ def virtual_insanity():
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
         
+possible_functions = {
+    move_random: 5, 
+    random_characters: 1, 
+    random_sound: 1, 
+    open_notepad: 1, 
+    print_ip: 1,
+    random_basic_image: 1,
+    look_at_this_graph: 1,
+    virtual_insanity: 1
+}
 
+def random_function():
+    funcs, weights = zip(*possible_functions.items())
+    function = random.choices(funcs, weights=weights, k=1)[0]
+    function()
 
-
-possible_functions = [
-    move_random, 
-    lambda: type_random_characters(random.randint(1, 100)), 
-    lambda: play_sound(random.choice(sound_files)), 
-    open_notepad, 
-    print_ip,
-    lambda: display_image(random.choice(image_files)),
-    look_at_this_graph,
-    virtual_insanity
-]
-
-#random.choice(possible_functions)()
-virtual_insanity()
+random_function()
