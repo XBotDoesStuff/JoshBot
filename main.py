@@ -1,7 +1,7 @@
 import pyautogui as pag
 from pathlib import Path
 from PIL import Image
-import time, pygame, random, ctypes, string, threading, subprocess, requests
+import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os, pygetwindow as gw
 
 pygame.mixer.init()
 
@@ -84,7 +84,13 @@ notepad_texts = [
 # Configuration
 moveto_time = 0.35
 
+min_wait_time = 180
+max_wait_time = 300
+
 # Basic functions
+def kill_joshbot():
+    print("Attempting to kill Joshbot")
+    os._exit(0)
 
 def move_random():
     print("Moving cursor to random position")
@@ -108,8 +114,8 @@ def play_sound(sound_file):
 def open_notepad(text=random.choice(notepad_texts)):
     print("Messing with notepad: " + text)
     subprocess.Popen('notepad.exe')
+    time.sleep(1)
     if text:
-        time.sleep(1)
         pag.hotkey('ctrl', 'a')
         pag.press('backspace')
         pag.typewrite(text)
@@ -176,4 +182,12 @@ def random_function():
     function = random.choices(funcs, weights=weights, k=1)[0]
     function()
 
-random_function()
+# ---------- MAIN PROGRAM ----------
+keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
+time.sleep(3)
+open_notepad()
+"""while True:
+    sleep_time = random.randint(min_wait_time, max_wait_time)
+    print("Sleeping for " + str(sleep_time) + " seconds")
+    time.sleep(sleep_time)
+    threading.Thread(target=random_function).start()"""
