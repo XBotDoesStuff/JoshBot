@@ -1,7 +1,8 @@
 import pyautogui as pag
 from pathlib import Path
 from PIL import Image
-import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os, pygetwindow as gw
+import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os
+from pywinauto import Application
 
 pygame.mixer.init()
 
@@ -113,12 +114,31 @@ def play_sound(sound_file):
 
 def open_notepad(text=random.choice(notepad_texts)):
     print("Messing with notepad: " + text)
-    subprocess.Popen('notepad.exe')
-    time.sleep(1)
+
+    app = None
+    notepad = None
+
+    try:
+        # Try to connect to existing Notepad
+        app = Application(backend="uia").connect(title_re=".*Notepad")
+        notepad = app.window(title_re=".*Notepad")
+        print("Connected to existing Notepad.")
+    except:
+        # If not found, launch a new one
+        print("No existing Notepad found. Launching a new one.")
+        subprocess.Popen('notepad.exe')
+        time.sleep(1)
+        app = Application(backend="uia").connect(title_re=".*Notepad")
+        notepad = app.window(title_re=".*Notepad")
+
+    # Bring Notepad to focus
+    notepad.set_focus()
+    time.sleep(0.5)
+
     if text:
         pag.hotkey('ctrl', 'a')
         pag.press('backspace')
-        pag.typewrite(text)
+        pag.typewrite(text, interval=0.02)
 
 def display_image(img_path=''):
     print("Displaying image: " + img_path)
