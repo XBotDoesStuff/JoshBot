@@ -79,7 +79,9 @@ notepad_texts = [
     "Loathsomeness waits and dreams in the deep, and decay spreads over the tottering cities of men.",
     "Me playing Warhammer 1-39,999 so I can finally play Warhammer 40k",
     "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
-    "what"
+    "We're always one step ahead :3 - XSCorporation",
+    "Also try Terraria!",
+    "Also try Minecraft!"
 ]
 
 # Configuration
@@ -88,11 +90,12 @@ moveto_time = 0.35
 min_wait_time = 180
 max_wait_time = 300
 
-# Basic functions
+# Utility functions
 def kill_joshbot():
     print("Attempting to kill Joshbot")
     os._exit(0)
 
+# Basic functions
 def move_random():
     print("Moving cursor to random position")
     pag.moveTo(random.randint(0, screen_width), random.randint(0, screen_height), moveto_time)
@@ -204,10 +207,8 @@ def random_function():
 
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
-time.sleep(3)
-open_notepad()
-"""while True:
+while True:
     sleep_time = random.randint(min_wait_time, max_wait_time)
     print("Sleeping for " + str(sleep_time) + " seconds")
     time.sleep(sleep_time)
-    threading.Thread(target=random_function).start()"""
+    threading.Thread(target=random_function).start()
