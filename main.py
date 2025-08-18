@@ -91,6 +91,9 @@ moveto_time = 0.35
 min_wait_time = 180
 max_wait_time = 300
 
+root = tk.Tk()
+root.withdraw()
+
 # Utility functions
 def kill_joshbot():
     print("Attempting to kill Joshbot")
@@ -147,19 +150,25 @@ def open_notepad(text=random.choice(notepad_texts)):
 def display_image(img_path=''):
     if not img_path:
         return
+    def _open():
+        win = tk.Toplevel(root)
+        win.title("Image Viewer")
+        win.attributes("-topmost", True)
 
-    root = tk.Tk()
-    root.title("Image Viewer")
-    root.attributes("-topmost", True)  # Bring window to front
+        x = random.randint(0, screen_width - 400)
+        y = random.randint(0, screen_height - 400)
+        win.geometry(f"+{x}+{y}")
 
-    img = Image.open(img_path)
-    tk_img = ImageTk.PhotoImage(img)
+        img = Image.open(img_path)
+        tk_img = ImageTk.PhotoImage(img)
 
-    label = tk.Label(root, image=tk_img)
-    label.pack()
+        label = tk.Label(win, image=tk_img)
+        label.image = tk_img  # prevent garbage collection
+        label.pack()
 
-    root.after(100, lambda: root.attributes("-topmost", False))  # Let user interact normally
-    root.mainloop()
+        win.after(100, lambda: win.attributes("-topmost", False))
+
+    root.after(0, _open)  # schedule safely inside Tk thread
 
 # Randomized basic functions (for the dictionary)
 def random_characters():
@@ -217,11 +226,15 @@ def random_function():
     function = random.choices(funcs, weights=weights, k=1)[0]
     function()
 
+def joshing_with_you():
+    while True:
+        sleep_time = random.randint(min_wait_time, max_wait_time)
+        print("Sleeping for " + str(sleep_time) + " seconds")
+        time.sleep(sleep_time)
+        threading.Thread(target=random_function).start()
+
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
-virtual_insanity()
-"""while True:
-    sleep_time = random.randint(min_wait_time, max_wait_time)
-    print("Sleeping for " + str(sleep_time) + " seconds")
-    time.sleep(sleep_time)
-    threading.Thread(target=random_function).start()"""
+#threading.Thread(target=joshing_with_you).start()
+threading.Thread(target=virtual_insanity).start()
+root.mainloop()
