@@ -152,7 +152,7 @@ def display_image(img_path=''):
         return
     def _open():
         win = tk.Toplevel(root)
-        win.title("Image Viewer")
+        win.title("Joshmedia TM")
         win.attributes("-topmost", True)
 
         x = random.randint(0, screen_width - 400)
@@ -235,6 +235,5 @@ def joshing_with_you():
 
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
-#threading.Thread(target=joshing_with_you).start()
-threading.Thread(target=virtual_insanity).start()
+threading.Thread(target=joshing_with_you).start()
 root.mainloop()
