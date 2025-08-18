@@ -1,8 +1,9 @@
 import pyautogui as pag
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageTk
 import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os
 from pywinauto import Application
+import tkinter as tk
 
 pygame.mixer.init()
 
@@ -144,10 +145,21 @@ def open_notepad(text=random.choice(notepad_texts)):
         pag.typewrite(text, interval=0.02)
 
 def display_image(img_path=''):
-    print("Displaying image: " + img_path)
-    if img_path:
-        img = Image.open(img_path)
-        img.show()
+    if not img_path:
+        return
+
+    root = tk.Tk()
+    root.title("Image Viewer")
+    root.attributes("-topmost", True)  # Bring window to front
+
+    img = Image.open(img_path)
+    tk_img = ImageTk.PhotoImage(img)
+
+    label = tk.Label(root, image=tk_img)
+    label.pack()
+
+    root.after(100, lambda: root.attributes("-topmost", False))  # Let user interact normally
+    root.mainloop()
 
 # Randomized basic functions (for the dictionary)
 def random_characters():
@@ -207,8 +219,9 @@ def random_function():
 
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
-while True:
+virtual_insanity()
+"""while True:
     sleep_time = random.randint(min_wait_time, max_wait_time)
     print("Sleeping for " + str(sleep_time) + " seconds")
     time.sleep(sleep_time)
-    threading.Thread(target=random_function).start()
+    threading.Thread(target=random_function).start()"""
