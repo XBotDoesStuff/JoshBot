@@ -100,6 +100,10 @@ def kill_joshbot():
     os._exit(0)
 
 # Basic functions
+def alt_tab():
+    print("Alt-tabbing")
+    pag.hotkey('alt', 'tab')
+
 def move_random():
     print("Moving cursor to random position")
     pag.moveTo(random.randint(0, screen_width), random.randint(0, screen_height), moveto_time)
@@ -212,6 +216,7 @@ def virtual_insanity():
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 possible_functions = {
     move_random: 4, 
+    alt_tab: 4,
     random_characters: 4, 
     random_sound: 4, 
     random_basic_image: 3,
