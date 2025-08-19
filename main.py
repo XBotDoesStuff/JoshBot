@@ -82,7 +82,8 @@ notepad_texts = [
     "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
     "We're always one step ahead :3 - XSCorporation",
     "Also try Terraria!",
-    "Also try Minecraft!"
+    "Also try Minecraft!",
+    "You feel an evil presence watching you..."
 ]
 
 # Configuration
@@ -104,9 +105,15 @@ def alt_tab():
     print("Alt-tabbing")
     pag.hotkey('alt', 'tab')
 
+def alt_f4():
+    print("Shocker!")
+    pag.hotkey("ctrl", "s")
+    pag.hotkey("alt", "f4")
+
 def move_random():
-    print("Moving cursor to random position")
+    print("Moving cursor to random position and clicking")
     pag.moveTo(random.randint(0, screen_width), random.randint(0, screen_height), moveto_time)
+    pag.doubleClick()
 
 def type_random_characters(num):
     print("Typing " + str(num) + " random characters")
@@ -223,7 +230,8 @@ possible_functions = {
     open_notepad: 3, 
     print_ip: 3,
     look_at_this_graph: 2,
-    virtual_insanity: 2
+    virtual_insanity: 2,
+    alt_f4: 1
 }
 
 def random_function():
