@@ -252,6 +252,7 @@ def joshing_with_you():
         sleep_time = random.randint(min_wait_time, max_wait_time)
         print("Sleeping for " + str(sleep_time) + " seconds")
         if random.randint(1, 10) != 1:
+            combo = 1
             time.sleep(sleep_time)
         else:
             combo *= 2
