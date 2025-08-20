@@ -245,10 +245,11 @@ def joshing_with_you():
     while True:
         sleep_time = random.randint(min_wait_time, max_wait_time)
         print("Sleeping for " + str(sleep_time) + " seconds")
-        if random.randint(1, 25) != 1:
+        if random.randint(1, 10) != 1:
             time.sleep(sleep_time)
         else:
             print("COMBO TIME")
+            play_sound("special_sounds\combo.mp3")
         threading.Thread(target=random_function).start()
 
 # ---------- MAIN PROGRAM ----------
