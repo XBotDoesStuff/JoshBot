@@ -95,6 +95,8 @@ max_wait_time = 300
 root = tk.Tk()
 root.withdraw()
 
+pag.FAILSAFE = False
+
 # Utility functions
 def kill_joshbot():
     print("Attempting to kill Joshbot")
