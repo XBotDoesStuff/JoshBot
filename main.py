@@ -109,7 +109,12 @@ def alt_tab():
 
 def alt_f4():
     print("Shocker!")
-    pag.hotkey("ctrl", "s")
+    if random.randint(1, 10) != 1:
+        pag.hotkey("ctrl", "s")
+        print("Stun resist!")
+        play_sound("special_sounds\parry.mp3")
+    else:
+        play_sound("special_sounds\deathsdoor.mp3")
     pag.hotkey("alt", "f4")
 
 def move_random():
