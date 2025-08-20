@@ -99,7 +99,7 @@ pag.FAILSAFE = False
 
 # Utility functions
 def kill_joshbot():
-    print("Attempting to kill Joshbot")
+    print("o7")
     os._exit(0)
 
 # Basic functions
