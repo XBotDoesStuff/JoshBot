@@ -112,9 +112,9 @@ def alt_f4():
     if random.randint(1, 10) != 1:
         pag.hotkey("ctrl", "s")
         print("Stun resist!")
-        play_sound("special_sounds\parry.mp3")
+        play_sound("special_sounds/parry.mp3")
     else:
-        play_sound("special_sounds\deathsdoor.mp3")
+        play_sound("special_sounds/deathsdoor.mp3")
     pag.hotkey("alt", "f4")
 
 def move_random():
@@ -257,7 +257,7 @@ def joshing_with_you():
         else:
             combo *= 2
             print("COMBO x" + str(combo))
-            play_sound("special_sounds\combo.mp3")
+            play_sound("special_sounds/combo.mp3")
         threading.Thread(target=random_function).start()
 
 # ---------- MAIN PROGRAM ----------
