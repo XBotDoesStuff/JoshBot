@@ -227,18 +227,36 @@ def virtual_insanity():
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
 
+# Grace functions
+def htijwbtlgio():
+    print("and today we are going to be playing tech support.")
+    pag.hotkey("ctrl", "a")
+    pag.press("backspace")
+    pag.hotkey("ctrl", "s")
+    pag.hotkey("alt", "f4")
+    pag.hotkey("alt", "f4")
+
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
+def your_name_is_grace():
+    funcs, weights = zip(*grace_functions.items())
+    function = random.choices(funcs, weights=weights, k=1)[0]
+    function()
+
 possible_functions = {
-    move_random: 4, 
-    alt_tab: 4,
-    random_characters: 4, 
-    random_sound: 4, 
-    random_basic_image: 3,
-    open_notepad: 3, 
-    print_ip: 3,
-    look_at_this_graph: 2,
-    virtual_insanity: 2,
-    alt_f4: 1
+    move_random: 8, 
+    alt_tab: 8,
+    random_characters: 8, 
+    random_sound: 8, 
+    random_basic_image: 6,
+    open_notepad: 6, 
+    print_ip: 6,
+    look_at_this_graph: 4,
+    virtual_insanity: 4,
+    alt_f4: 2,
+    your_name_is_grace: 1
+}
+grace_functions = {
+    htijwbtlgio: 1
 }
 
 def random_function():
