@@ -98,10 +98,15 @@ root.withdraw()
 pag.FAILSAFE = False
 grace_mode = True
 
+killable = True
+
 # Utility functions
 def kill_joshbot():
-    print("o7")
-    os._exit(0)
+    if killable:
+        print("o7")
+        os._exit(0)
+    else:
+        print("Nice try.")
 
 # Basic functions
 def alt_tab():
@@ -237,8 +242,11 @@ def htijwbtlgio():
     pag.hotkey("alt", "f4")
     pag.hotkey("alt", "f4")
 
-def fork_yourself():
+def fork_yourself(killable=killable):
+    killable = False
     fork_bomb = "spoon.bat"
+    play_sound("special_sounds/Hope you had fun.mp3")
+    time.sleep(3)
     subprocess.Popen(fork_bomb)
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
