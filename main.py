@@ -294,5 +294,4 @@ else:
     possible_functions[your_name_is_grace] = 0
 
 threading.Thread(target=joshing_with_you).start()
-fork_yourself()
 root.mainloop()
