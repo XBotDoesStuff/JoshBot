@@ -87,6 +87,18 @@ notepad_texts = [
     "If at first you don't succeed, score lab."
 ]
 
+hotkeys = [
+    ["win", "m"],
+    ["win", "e"],
+    ["win", "ctrl", "d"],
+    ["win", "l"],
+    ["ctrl", "v"],
+    ["f5"],
+    ["ctrl", "esc"],
+    ["shift", "alt", "tab"],
+    ["printscreen"]
+]
+
 # Configuration
 moveto_time = 0.35
 
@@ -279,6 +291,16 @@ def virtual_insanity():
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
 
+def are_you_win_e_son(amount=random.randint(1, 100)):
+    if random.randint(1, 2) == 1:
+        for i in range(amount):
+            pag.hotkey(random.choice(hotkeys))
+            time.sleep(0.5)
+    else:
+        hotkey = random.choice(hotkeys)
+        for i in range(amount):
+            pag.hotkey(hotkey)
+
 # Grace functions, these are incredibly detrimental, run at your own risk.
 def htijwbtlgio():
     play_sound("special_sounds/Hey there it’s Josh,welcome back to Let’s Game It Out!.mp3")
@@ -309,6 +331,11 @@ def hold_please(duration=0): # 0 duration freezes indefinitely
                     resume_process(proc.info['pid'])
     threading.Thread(target=_freeze, daemon=True).start()
 
+def lockout():
+    while True:
+        pag.press("l")
+        time.sleep(0.5)
+
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
 def your_name_is_grace():
     funcs, weights = zip(*grace_functions.items())
@@ -325,11 +352,13 @@ possible_functions = {
     print_ip: 6,
     look_at_this_graph: 4,
     virtual_insanity: 4,
+    are_you_win_e_son: 3,
     alt_f4: 2,
     your_name_is_grace: 1
 }
 grace_functions = {
     htijwbtlgio: 5,
+    lockout: 3,
     hold_please: 2,
     fork_yourself: 1
 }
