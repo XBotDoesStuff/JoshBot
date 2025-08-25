@@ -333,7 +333,7 @@ def hold_please(duration=0): # 0 duration freezes indefinitely
 
 def lockout():
     while True:
-        pag.press("l")
+        pag.hotkey("win", "l")
         time.sleep(0.5)
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
@@ -397,5 +397,6 @@ if grace_mode:
 else:
     possible_functions[your_name_is_grace] = 0
 
-threading.Thread(target=joshing_with_you).start()
+#threading.Thread(target=joshing_with_you).start()
+lockout()
 root.mainloop()
