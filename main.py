@@ -83,7 +83,8 @@ notepad_texts = [
     "We're always one step ahead :3 - XSCorporation",
     "Also try Terraria!",
     "Also try Minecraft!",
-    "You feel an evil presence watching you..."
+    "You feel an evil presence watching you...",
+    "If at first you don't succeed, score lab."
 ]
 
 # Configuration
@@ -300,9 +301,10 @@ def hold_please(duration=0): # 0 duration freezes indefinitely
         for proc in psutil.process_iter(['pid', 'name']):
             if proc.info['name'].lower() == "explorer.exe":
                 print("Freezing Explorer...")
+                open_notepad("Hold, please!")
                 suspend_process(proc.info['pid'])
                 if duration:
-                    time.sleep(duration)   # keep it frozen for X seconds
+                    time.sleep(duration)   # keep it frozen for X seconds, may not work unless elevated
                     print("Unfreezing Explorer...")
                     resume_process(proc.info['pid'])
     threading.Thread(target=_freeze, daemon=True).start()
@@ -328,7 +330,7 @@ possible_functions = {
 }
 grace_functions = {
     htijwbtlgio: 5,
-    hold_please: 3,
+    hold_please: 2,
     fork_yourself: 1
 }
 
@@ -367,5 +369,4 @@ else:
     possible_functions[your_name_is_grace] = 0
 
 threading.Thread(target=joshing_with_you).start()
-
 root.mainloop()
