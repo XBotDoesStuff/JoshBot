@@ -87,7 +87,7 @@ notepad_texts = [
     "If at first you don't succeed, score lab."
 ]
 
-hotkeys = [
+"""hotkeys = [
     ["win", "m"],
     ["win", "e"],
     ["win", "ctrl", "d"],
@@ -97,7 +97,7 @@ hotkeys = [
     ["ctrl", "esc"],
     ["shift", "alt", "tab"],
     ["printscreen"]
-]
+]"""
 
 # Configuration
 moveto_time = 0.35
@@ -291,6 +291,8 @@ def virtual_insanity():
         temp = beats[i]
         display_image("special_images/Virtual-Insanity-Frames/" + str(i + 1) + ".png")
 
+"""
+Currently no good way to use superkey with AtlasOS, looking for solution later
 def are_you_win_e_son(amount=random.randint(1, 100)):
     if random.randint(1, 2) == 1:
         for i in range(amount):
@@ -299,7 +301,7 @@ def are_you_win_e_son(amount=random.randint(1, 100)):
     else:
         hotkey = random.choice(hotkeys)
         for i in range(amount):
-            pag.hotkey(hotkey)
+            pag.hotkey(hotkey)"""
 
 # Grace functions, these are incredibly detrimental, run at your own risk.
 def htijwbtlgio():
@@ -352,7 +354,7 @@ possible_functions = {
     print_ip: 6,
     look_at_this_graph: 4,
     virtual_insanity: 4,
-    are_you_win_e_son: 3,
+    #are_you_win_e_son: 3,
     alt_f4: 2,
     your_name_is_grace: 1
 }
@@ -397,6 +399,5 @@ if grace_mode:
 else:
     possible_functions[your_name_is_grace] = 0
 
-#threading.Thread(target=joshing_with_you).start()
-lockout()
+threading.Thread(target=joshing_with_you).start()
 root.mainloop()
