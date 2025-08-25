@@ -88,10 +88,10 @@ notepad_texts = [
 ]
 
 hotkeys = [
-    ["win", "m"],
-    ["win", "e"],
-    ["win", "ctrl", "d"],
-    ["win", "l"],
+    ["winleft", "m"],
+    ["winleft", "e"],
+    ["winleft", "ctrl", "d"],
+    ["winleft", "l"],
     ["ctrl", "v"],
     ["f5"],
     ["ctrl", "esc"],
@@ -333,7 +333,7 @@ def hold_please(duration=0): # 0 duration freezes indefinitely
 
 def lockout():
     while True:
-        pag.hotkey("win", "l")
+        pag.hotkey("winleft", "l")
         time.sleep(0.5)
 
 # Dictionary of possible outcomes for the random_function() function. Second value is weight, higher = more likely
